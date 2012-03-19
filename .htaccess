@@ -1,0 +1,9 @@
+<Files ignore.txt>
+order allow,deny
+deny from all
+</Files>
+
+<Files key.txt>
+order allow,deny
+deny from all
+</Files>

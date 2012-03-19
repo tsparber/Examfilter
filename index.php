@@ -1,6 +1,12 @@
 <?php
   // Tommy Sparber - fast hack to filter the ics file
 
+  $key = file_get_contents("key.txt"); //-> store any key, which needs to be added
+
+  if($_GET["key"] != trim($key))
+  {
+    die("Not allowed!");
+  }
 
   $url = "http://telematik.edu/bakk_exams.ics";
 
