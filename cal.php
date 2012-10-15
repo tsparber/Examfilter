@@ -56,7 +56,7 @@ function main()
       }
 
       $filter_events[$key]['URL'] = CalTools::getEventURL($id, $eid);
-      //$events[$key]['DESCRIPTION'] = CalTools::getEventURL($id, $eid);
+      $filter_events[$key]['DESCRIPTION'] = CalTools::getEventURL($id, $eid);
     }
   }
 
