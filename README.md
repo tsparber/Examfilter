@@ -1,5 +1,3 @@
-Small PHP script to filter the calender.
+Small PHP script to filter the Exam calender.
 
-All exams listed in ignore.txt are ignored. Encode german umlaute with their
-respective
-html entities.
+

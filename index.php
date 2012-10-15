@@ -1,54 +1,54 @@
 <?php
-  // Tommy Sparber - fast hack to filter the ics file
+//------------------------------------------------------------------------------
+/// Filename:    index.php
+/// Description: Examfilter Mainfile
+/// Authors:     Tommy Sparber
+///
+/// Created:     14.10.2012
+//------------------------------------------------------------------------------
 
-  $key = file_get_contents("key.txt"); //-> store any key, which needs to be added
+error_reporting(E_ALL|E_STRICT);
 
-  if($_GET["key"] != trim($key))
+require_once('./classes/template.class.php');
+require_once('./classes/tools.class.php');
+require_once('./classes/form.class.php');
+
+require_once('./classes/caltools.class.php');
+
+main();
+
+//------------------------------------------------------------------------------
+function main()
+{
+  $template = new Template();
+
+  $template->setTitle("ExamFilter - TUGRAZ");
+
+  $form = new Form('generatedid');
+  $form->addSubmit('submit', 'Generate new personal calendar');
+
+  if($form->isReady())
   {
-    die("Not allowed!");
-  }
+    //$fields = $form->getFields();
+    $ids = CalTools::loadIds();
+    $id = 0;
 
-  $url = "http://telematik.edu/bakk_exams.ics";
-
-  $ignore = file("ignore.txt"); //Line by line: The summary to be ignored
-
-  header("Content-Type: text/calendar; charset=UTF-8");
-  header('Content-Disposition: attachment; filename="Pruefungstermine.ics"');
-
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, $url);
-  curl_setopt($ch, CURLOPT_HEADER, 0);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-  $cal_input = curl_exec($ch);
-  curl_close($ch);
-
-  $cal_line = explode("\n", $cal_input);
-
-  $cal_output = "BEGIN:VCALENDAR
-METHOD:PUBLISH
-VERSION:2.0
-PRODID:-//Pruefungstermine Bakk Telematik Filterd by Bagru//DE
-X-WR-TIMEZONE:Europe/Vienna\n\n";
-
-  for($i = 0; $i < count($cal_line); $i++)
-  {
-    if($cal_line[$i] == "BEGIN:VEVENT")
+    do
     {
-      if(!in_array(htmlentities(utf8_decode(substr($cal_line[$i+3], 8)))."\n", $ignore))
-      {
-        $cal_output .= $cal_line[$i++] . "\n";
-        $cal_output .= $cal_line[$i++] . "\n";
-        $cal_output .= $cal_line[$i++] . "\n";
-        $cal_output .= $cal_line[$i++] . "\n";
-        $cal_output .= $cal_line[$i++] . "\n";
-        $cal_output .= $cal_line[$i++] . "\n";
-        $cal_output .= $cal_line[$i++] . "\n";
-        $cal_output .= $cal_line[$i++] . "\n";
-      }
-    }
+      $id = CalTools::generateId();
+    }while(in_array($id, $ids));
+
+    $handle = fopen("storage/cal_$id.txt", 'w') or die("can't open file");
+    fclose($handle);
+
+    $template->addContent('<a href="'.CalTools::getCalURL($id).'">' . CalTools::getCalURL($id) . '</a>');
+  }
+  else
+  {
+    $template->addContent($form->getFormHTML());
   }
 
-  $cal_output .= "END:VCALENDAR\n";
+  print $template->out();
+}
 
-  print $cal_output;
 ?>

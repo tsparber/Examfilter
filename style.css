@@ -1,0 +1,67 @@
+/*******************************************************************************
+ *** Filename:    style.css
+ *** Description: Base Stlesheet for ExamFilter
+ *** Authors:     Tommy Sparber
+ ***
+ *** Created:     15.10.2012
+ ******************************************************************************/
+
+a
+{
+  color: #294f73;
+}
+
+/* msg */
+.messages
+{
+  padding-bottom: 2em;
+}
+
+.msg
+{
+  font-size:13px;
+	font-weight:bold;
+	margin-bottom:0px;
+  border-width: 1px;
+  border-style: solid;
+	padding: 10px;
+  padding-left: 36px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 10px;
+  background-repeat: no-repeat;
+  background-position: 12px center;
+}
+
+.msgerror
+{
+	color:#FF0000;
+	border-color: #FF0000;
+	background-color: #ffcccc;
+  /*  background-image: url('./icons/exclamation.png');*/
+}
+
+.msgok
+{
+	color:#006600;
+	border-color: #006600;
+	background-color: #99cc99;
+  /*  background-image: url('./icons/accept.png');*/
+}
+
+.msgwarning
+{
+	color:#d9b700;
+	border-color: #d9b700;
+	background-color: #fff8b6;
+  /*  background-image: url('./icons/error.png');*/
+}
+
+.msginfo
+{
+	color:#002aff;
+	border-color: #002aff;
+	background-color: #92c3ff;
+  /* background-image: url('./icons/information.png'); */
+}
+/* /msg */
