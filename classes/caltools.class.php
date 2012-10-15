@@ -117,7 +117,7 @@ class CalTools
 
   public static function getEventURL($id, $eid)
   {
-    return 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']).'/e.php?id='.$id.'&eid='.$eid;
+    return 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']).(substr(dirname($_SERVER['REQUEST_URI']), -1) != '/' ? '/' : '').'e.php?id='.$id.'&eid='.$eid;
   }
 }
 ?>
