@@ -57,7 +57,7 @@ function main()
       $filter_events[$key]['URL'] = CalTools::getEventURL($id, $eid);
 
       if(FALSE == preg_match('/^iOS/', $_SERVER['HTTP_USER_AGENT']) &&
-         FALSE == preg_match('/^OS X/', $_SERVER['HTTP_USER_AGENT']))
+         FALSE == preg_match('/^Mac OS X/', $_SERVER['HTTP_USER_AGENT']))
       {
         $filter_events[$key]['DESCRIPTION'] = CalTools::getEventURL($id, $eid);
       }
