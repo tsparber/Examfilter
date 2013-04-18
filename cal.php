@@ -34,8 +34,7 @@ function main()
     header('Content-Disposition: attachment; filename="Pruefungstermine.ics"');
   }
 
-  $url = "http://telematik.edu/bakk_exams.ics";
-  $data = CalTools::getWebData($url);
+  $data = CalTools::getData();
   $events = CalTools::parseCalendar($data);
 
   $ignore = file("./storage/cal_$id.txt", FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
@@ -56,7 +55,13 @@ function main()
       }
 
       $filter_events[$key]['URL'] = CalTools::getEventURL($id, $eid);
-      $filter_events[$key]['DESCRIPTION'] = CalTools::getEventURL($id, $eid);
+
+      if(FALSE == preg_match('/^iOS/', $_SERVER['HTTP_USER_AGENT']) &&
+         FALSE == preg_match('/^OS X/', $_SERVER['HTTP_USER_AGENT']))
+      {
+        $filter_events[$key]['DESCRIPTION'] = CalTools::getEventURL($id, $eid);
+      }
+      else { /* do not abuse description for url on OSX or iOS */ }
     }
   }
 

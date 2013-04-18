@@ -35,8 +35,7 @@ function main()
   }
   else
   {
-    $url = "http://telematik.edu/bakk_exams.ics";
-    $data = CalTools::getWebData($url);
+    $data = CalTools::getData();
     $events = CalTools::parseCalendar($data);
     $sevent = 0;
 

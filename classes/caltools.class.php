@@ -9,6 +9,14 @@
 
 class CalTools
 {
+  public static function getData()
+  {
+    //$url = "http://telematik.edu/bakk_exams.ics";
+    //$data = CalTools::getWebData($url);
+    $path = "bakk_exams.ics";
+    return file_get_contents($path);
+  }
+
   public static function getWebData($url)
   {
     $ch = curl_init();
